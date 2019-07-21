@@ -18,20 +18,19 @@
           <p>2 rue Marc Donadille<br>
           13013 Marseille</p>
         </td>
-      </tr>
-    </table>
+      </table>
+    </div>
+    <div class="champs">
+      <p><button @click="selectText">Cliquez pour sélectionner la signature</button> puis -> copier coller pour configurer votre email</p>
+      <p>
+        <input class="line" type="text" v-model="line1" placeholder="Prénom Nom">
+        <input class="line" type="text" v-model="line2" placeholder="titre 1">
+        <input class="line" type="text" v-model="line3" placeholder="titre 2">
+        <input class="line" type="text" v-model="telephone1" placeholder="téléphone 1">
+        <input class="line" type="text" v-model="telephone2" placeholder="téléphone 2">
+      </p>
+    </div>
   </div>
-  <div class="champs">
-    <p><button @click="selectText">Cliquez pour sélectionner la signature</button> puis -> copier coller pour configurer votre email</p>
-    <p>
-      <input class="line" type="text" v-model="line1" placeholder="Prénom Nom">
-      <input class="line" type="text" v-model="line2" placeholder="titre 1">
-      <input class="line" type="text" v-model="line3" placeholder="titre 2">
-      <input class="line" type="text" v-model="telephone1" placeholder="téléphone 1">
-      <input class="line" type="text" v-model="telephone2" placeholder="téléphone 2">
-    </p>
-  </div>
-</div>
 </template>
 
 <script>
@@ -49,14 +48,14 @@ export default {
     }
   },
   computed: {
-    tel1: function () { 
-      return 'tel:'+this.telephone1.split(' ').join('')
+    tel1: function () {
+      return 'tel:' + this.telephone1.split(' ').join('')
     },
-    tel2: function () { 
-      return 'tel:'+this.telephone2.split(' ').join('')
+    tel2: function () {
+      return 'tel:' + this.telephone2.split(' ').join('')
     },
     urlEncoded: function () {
-      return encodeURI('line1='+this.line1+'&line2='+this.line2+'&line3='+this.line3+'&telephone1='+this.telephone1+'&telephone2='+this.telephone2)
+      return encodeURI('line1=' + this.line1 + '&line2=' + this.line2 + '&line3=' + this.line3 + '&telephone1=' + this.telephone1 + '&telephone2=' + this.telephone2)
     }
   },
   mounted: function () {
@@ -67,22 +66,22 @@ export default {
     this.telephone1 = this.$route.query.telephone1 ? this.$route.query.telephone1 : ''
     this.telephone2 = this.$route.query.telephone2 ? this.$route.query.telephone2 : ''
   },
-  watch : {
+  watch: {
     urlEncoded: function () {
-      this.$router.push({ query: { line1: this.line1, line2: this.line2, line3: this.line3, telephone1:this.telephone1, telephone2: this.telephone2 } })
+      this.$router.push({ query: { line1: this.line1, line2: this.line2, line3: this.line3, telephone1: this.telephone1, telephone2: this.telephone2 } })
     }
   },
   methods: {
     selectText: function () {
       if (document.selection) { // IE
-        var range = document.body.createTextRange();
-        range.moveToElementText(this.$refs.copythis);
-        range.select();
+        let range = document.body.createTextRange()
+        range.moveToElementText(this.$refs.copythis)
+        range.select()
       } else if (window.getSelection) {
-        var range = document.createRange();
-        range.selectNode(this.$refs.copythis);
-        window.getSelection().removeAllRanges();
-        window.getSelection().addRange(range);
+        let range = document.createRange()
+        range.selectNode(this.$refs.copythis)
+        window.getSelection().removeAllRanges()
+        window.getSelection().addRange(range)
       }
     }
   }
@@ -119,7 +118,7 @@ export default {
     margin: 0 0 5px;
     font-size: 1.4rem;
 
-  }  
+  }
 }
 button {
   padding: 7px 9px;
@@ -130,7 +129,6 @@ button {
 .resultat {
   padding: 20px 20px 45px;
 }
-
 
 .fl {
   float: left;
